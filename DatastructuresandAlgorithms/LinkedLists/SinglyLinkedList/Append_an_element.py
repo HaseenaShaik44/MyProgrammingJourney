@@ -27,7 +27,15 @@ class LinkedList:
     def prepend(self,data):
         new_node=Node(data)
         new_node.next=self.head
-        self.head=new_node                             
+        self.head=new_node
+    def insert(self,prev_node,data):
+        
+        if not prev_node:
+            print("prev_node doesn't exist")
+            return
+        new_node=Node(data)
+        new_node.next=prev_node.next
+        prev_node.next=new_node                              
     
 llist = LinkedList()
 llist.append("A")
@@ -35,6 +43,7 @@ llist.append("B")
 llist.append("C")
 llist.append("D")
 llist.prepend("I")
+llist.insert(llist.head.next, "E")
 llist.print()
 
 
