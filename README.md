@@ -1,2 +1,2 @@
 # MyProgrammingJourney
- This repo is dedicated to everyday coding practice and my progress
+ This repo is dedicated to my regular programming practice and my progress
