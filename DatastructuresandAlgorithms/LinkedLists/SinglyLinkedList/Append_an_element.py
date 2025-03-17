@@ -7,6 +7,11 @@ class Node:
 class LinkedList:
     def __init__(self):
         self.head=None
+    def print(self):
+        current_node=self.head #Current_node is considered as head
+        while current_node: #While current_node is not null
+            print(current_node.data) #Printing the current node data
+            current_node=current_node.next #Current node will be equal to the current_node.next to traverse through the linked list
     def append(self,data):
         new_node=Node(data) #Creating a node object for the data
         if(self.head is None): #If the length of the list is 0 or If there is no head for the linked list,
@@ -19,16 +24,17 @@ class LinkedList:
                 last_node=last_node.next #Last_node will be assigned to the next element in each iteration
             last_node.next=new_node #Once the while lopp is completed, last_node.next is linked to the new_node
                                     #Already new_node.next is None while creating it
-    def print(self):
-        current_node=self.head #Current_node is considered as head
-        while current_node: #While current_node is not null
-            print(current_node.data) #Printing the current node data
-            current_node=current_node.next #Current node will be equal to the current_node.next to traverse through the linked list
+    def prepend(self,data):
+        new_node=Node(data)
+        new_node.next=self.head
+        self.head=new_node                             
+    
 llist = LinkedList()
 llist.append("A")
 llist.append("B")
 llist.append("C")
 llist.append("D")
-llist.print()              
+llist.prepend("I")
+llist.print()
 
 
