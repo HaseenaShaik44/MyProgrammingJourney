@@ -25,23 +25,31 @@ class LinkedList:
             last_node.next=new_node #Once the while lopp is completed, last_node.next is linked to the new_node
                                     #Already new_node.next is None while creating it
     def prepend(self,data):
-        new_node=Node(data)
-        new_node.next=self.head
-        self.head=new_node
-    def insert(self,prev_node,data):
-        
-        if not prev_node:
-            print("prev_node doesn't exist")
+        new_node=Node(data) #Creating a node object for the data
+        new_node.next=self.head #Making the next of the new node as intial head of the linked list
+        self.head=new_node #Replacing the head of the linked list with the new node
+
+    def insert(self,prev_node,data):        
+        if not prev_node: #Evaluating if the previos node does n't exist or previous node is none
+            print("prev_node doesn't exist") #Printing that previos node doesn't exist
             return
-        new_node=Node(data)
-        new_node.next=prev_node.next
-        prev_node.next=new_node                              
-    def delete_node(self,key):
-        current_node=self.head
-        if current_node and current_node.data == key:
-            self.head=current_node.next
-            current_node = None
-            return                
+        new_node=Node(data) #Creating a node object for the data
+        new_node.next=prev_node.next #New_node.next will be assigned to the previous_node.next because the new_node will be inserted
+        prev_node.next=new_node #Now the previous node.next will be assigned to the new_node                             
+    def delete_node(self, key): #Deleting a node depending on the key value
+        cur_node = self.head #Intially, current node is set to equal the head of the linked list
+        if cur_node and cur_node.data == key:
+            self.head = cur_node.next 
+            cur_node = None
+            return
+        prev_node=None
+        while cur_node and cur_node.data != key:
+            prev_node=cur_node
+            cur_node=cur_node.next
+        if cur_node is None:
+            print(f"{key} is not present in this linked list")
+            return
+        prev_node.next=cur_node.next                  
 llist = LinkedList()
 llist.append("A")
 llist.append("B")
@@ -50,7 +58,5 @@ llist.append("D")
 llist.prepend("I")
 llist.insert(llist.head.next, "E")
 llist.delete_node("B")
-llist.delete_node("E")
+llist.delete_node("J")
 llist.print()
-
-
