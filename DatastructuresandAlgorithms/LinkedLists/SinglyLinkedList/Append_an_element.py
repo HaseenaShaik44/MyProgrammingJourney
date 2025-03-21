@@ -35,21 +35,60 @@ class LinkedList:
             return
         new_node=Node(data) #Creating a node object for the data
         new_node.next=prev_node.next #New_node.next will be assigned to the previous_node.next because the new_node will be inserted
-        prev_node.next=new_node #Now the previous node.next will be assigned to the new_node                             
+        prev_node.next=new_node #Now the previous node.next will be assigned to the new_node
+#DELETING BY VALUE OF THE ELEMENT                                     
     def delete_node(self, key): #Deleting a node depending on the key value
         cur_node = self.head #Intially, current node is set to equal the head of the linked list
-        if cur_node and cur_node.data == key:
-            self.head = cur_node.next 
-            cur_node = None
+        if cur_node and cur_node.data == key: # Here we are checking whether the linked list is not empty
+                                                #and also element we are trying to delete is not head
+            self.head = cur_node.next #If the key is equal to head, then we are making the next element as head
+            cur_node = None #The current element will be None now
+            return #Returning out from the condition
+        prev_node=None #To take the previous node information, it is assigned as none in the beginning
+        while cur_node and cur_node.data != key: #while the current node is not none an dcurrent node data is not equla to key
+            prev_node=cur_node #Previous node will be equal to the current node
+            cur_node=cur_node.next #current node will be equal to current node.next
+        if cur_node is None: # validating if the current node is None
+            print(f"{key} is not present in this linked list") #then printing that the key is not present in the linked list
+            return #Returning out from the condition
+        prev_node.next=cur_node.next #previous node.next will be equal to the current_node.next as the current node will be deleted
+        cur_node=None
+#DELETING BY POSITION OF THE ELEMENT
+    def delete_posnode(self, pos): #Deleting a node depending on the key value
+        cur_node = self.head #Intially, current node is set to equal the head of the linked list
+        if cur_node and pos == 0: # Here we are checking whether the linked list is not empty
+                                                #and also position is nt 0 which means it is head
+            self.head = cur_node.next #If the key is equal to head, then we are making the next element as head
+            cur_node = None #The current element will be None now
+            return #Returning out from the condition
+        prev_node=None #To take the previous node information, it is assigned as none in the beginning
+        count=0 #count will be equal to 0
+        while cur_node and count != pos: #while the current node is not none and count is not equal to the position
+            prev_node=cur_node #Previous node will be equal to the current node
+            cur_node=cur_node.next #current node will be equal to current node.next
+            count+=1 #count will be incremented by 1
+        if cur_node is None: # validating if the current node is None
+            print(f"{pos} is not present is out of the length of this linked list") #then printing that the key is not present in the linked list
+            return #Returning out from the condition
+        prev_node.next=cur_node.next #previous node.next will be equal to the current_node.next as the current node will be deleted
+        cur_node=None #curent node will be equal to none
+#LENGTH OF A LINKED LIST
+    def length(self):
+        length=0 #Intially lenth is considered as 0
+        current_node=self.head #Current node is equal to the head
+        if current_node is None: #If the current node i.e., head is empty thn linked list is empty
+            print("This linked list is empty") 
             return
-        prev_node=None
-        while cur_node and cur_node.data != key:
-            prev_node=cur_node
-            cur_node=cur_node.next
-        if cur_node is None:
-            print(f"{key} is not present in this linked list")
-            return
-        prev_node.next=cur_node.next                  
+        while current_node: #Until the current node is none
+            current_node=current_node.next #current node is eqal to the current_node.next
+            length+=1 #length will be incremented by 1
+        print(f"The length of linked list is {length}")
+#LENGTH OF A LINKED LIST USING RECURSIVE IMPLEMENTATION
+    def len_recur(self,node): #Finding th elength of linked list using recusion method. For this, head node will be taken as input
+        if(node is None): #if the head node is Node, then length of the linked list is 0
+            print("This linked list is empty")
+            return 0
+        return 1+ self.len_recur(node.next) #One is added everytime current node (intially head node) is moved to the next node                                                   
 llist = LinkedList()
 llist.append("A")
 llist.append("B")
@@ -59,4 +98,8 @@ llist.prepend("I")
 llist.insert(llist.head.next, "E")
 llist.delete_node("B")
 llist.delete_node("J")
+llist.delete_posnode(2)
 llist.print()
+llist.length()
+print("The length of the linked list calculated iteratively after inserting 4 elements is:")
+print(llist.len_recur(llist.head))
