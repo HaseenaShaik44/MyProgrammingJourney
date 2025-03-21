@@ -85,21 +85,54 @@ class LinkedList:
         print(f"The length of linked list is {length}")
 #LENGTH OF A LINKED LIST USING RECURSIVE IMPLEMENTATION
     def len_recur(self,node): #Finding th elength of linked list using recusion method. For this, head node will be taken as input
-        if(node is None): #if the head node is Node, then length of the linked list is 0
-            print("This linked list is empty")
+        if(node is None): #if the head node is None, then length of the linked list is 0
             return 0
-        return 1+ self.len_recur(node.next) #One is added everytime current node (intially head node) is moved to the next node                                                   
+        return 1+ self.len_recur(node.next) #One is added everytime current node (intially head node) is moved to the next node
+    def swap_nodes(self,node_1,node_2):
+        if(node_1==node_2):
+           return
+        prev1_node=None
+        curr1_node=self.head
+        while curr1_node and curr1_node.data!=node_1:
+            prev1_node=curr1_node
+            curr1_node=curr1_node.next
+        prev2_node=None
+        curr2_node=self.head
+        while curr2_node and curr2_node.data!=node_2:
+            prev2_node=curr2_node
+            curr2_node=curr2_node.next
+        if not curr1_node or not curr2_node:
+            return
+        if prev1_node:
+            prev1_node.next=curr2_node
+        else:
+            self.head=curr2_node
+        if prev2_node:
+            prev2_node.next=curr1_node
+        else:
+            self.head=curr1_node
+        curr1_node.next,curr2_node.next= curr2_node.next,curr1_node.next           
+
+                                        
 llist = LinkedList()
 llist.append("A")
-llist.append("B")
 llist.append("C")
 llist.append("D")
 llist.prepend("I")
-llist.insert(llist.head.next, "E")
-llist.delete_node("B")
-llist.delete_node("J")
-llist.delete_posnode(2)
 llist.print()
+llist.insert(llist.head.next, "B")
+llist.print()
+llist.delete_node("I")
 llist.length()
-print("The length of the linked list calculated iteratively after inserting 4 elements is:")
+llist.delete_node("J")
+llist.delete_posnode(3)
+llist.print()
+print("The length of the linked list calculated iteratively is:")
 print(llist.len_recur(llist.head))
+llist.swap_nodes("B", "C")
+print("Swapping nodes B and C that are not head nodes")
+llist.print()
+
+llist.swap_nodes("A", "B")
+print("Swapping nodes A and B where key_1 is head node")
+llist.print()
