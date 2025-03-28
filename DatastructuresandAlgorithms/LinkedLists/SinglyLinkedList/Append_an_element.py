@@ -111,7 +111,16 @@ class LinkedList:
             prev2_node.next=curr1_node
         else:
             self.head=curr1_node
-        curr1_node.next,curr2_node.next= curr2_node.next,curr1_node.next           
+        curr1_node.next,curr2_node.next= curr2_node.next,curr1_node.next
+    def rev(self):
+        prev=None
+        cur=self.head
+        while cur:
+            next=cur.next
+            cur.next=prev
+            prev=cur
+            cur=next
+        self.head = prev             
 
                                         
 llist = LinkedList()
@@ -135,4 +144,7 @@ llist.print()
 
 llist.swap_nodes("A", "B")
 print("Swapping nodes A and B where key_1 is head node")
+llist.print()
+llist.rev()
+print("Reversed linked list is as follows:")
 llist.print()
