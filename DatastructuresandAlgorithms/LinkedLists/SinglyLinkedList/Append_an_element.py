@@ -121,7 +121,16 @@ class LinkedList:
             prev=cur
             cur=next
         self.head = prev             
-
+    def reverse_recur(self):
+        def _reverse_recur(cur,prev):
+            if not cur:
+                return prev
+            next=cur.next
+            cur.next=prev
+            prev=cur
+            cur=next
+            return _reverse_recur(cur,prev)
+        self.head=_reverse_recur(cur=self.head, prev=None)    
                                         
 llist = LinkedList()
 llist.append("A")
@@ -147,4 +156,7 @@ print("Swapping nodes A and B where key_1 is head node")
 llist.print()
 llist.rev()
 print("Reversed linked list is as follows:")
+llist.print()
+llist.reverse_recur()
+print("Reversed linked list through recursion is as follows:")
 llist.print()
